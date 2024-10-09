@@ -1,11 +1,9 @@
-FROM scratch
-COPY --from=traefik:v3.1.6-alpine /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=traefik:v3.1.6-alpine /usr/share/zoneinfo /usr/share/
-COPY --from=traefik:v3.1.6-alpine /usr/local/bin/traefik /
+FROM mcr.microsoft.com/windows/nanoserver:ltsc2022
+
+COPY --from=traefik:v3.2.0-rc2-windowsservercore-ltsc2022 /traefik.exe /
 
 EXPOSE 80
-VOLUME ["/tmp"]
-ENTRYPOINT ["/traefik"]
+ENTRYPOINT [ "/traefik" ]
 
 # Metadata
 LABEL org.opencontainers.image.vendor="Traefik Labs" \
@@ -13,5 +11,5 @@ LABEL org.opencontainers.image.vendor="Traefik Labs" \
     org.opencontainers.image.source="https://github.com/traefik/traefik" \
     org.opencontainers.image.title="Traefik" \
     org.opencontainers.image.description="A modern reverse-proxy" \
-    org.opencontainers.image.version="v3.1.6" \
+    org.opencontainers.image.version="v3.2.0-rc2" \
     org.opencontainers.image.documentation="https://docs.traefik.io"
